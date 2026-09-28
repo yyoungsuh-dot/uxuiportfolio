@@ -1,0 +1,21 @@
+/* Shared "fade up into view" reveal, used with the useReveal hook — imported
+   by SectionIntro, MediaBlocks, and any case-study page that hand-rolls a
+   media row (e.g. Pitch's As-is/To-be compare row). Pair .reveal with
+   .revealIn once the element's useReveal() flips to true; stagger multiple
+   items (e.g. a left-to-right image row) via an inline transitionDelay. */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(12px);
+  transition:
+    opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.revealIn {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}

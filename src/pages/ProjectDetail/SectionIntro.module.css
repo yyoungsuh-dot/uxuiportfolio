@@ -1,0 +1,85 @@
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--detail-label-gap);
+  padding: 0 clamp(20px, 4vw, 60px) 0 var(--detail-page-pad);
+}
+
+.label {
+  flex: none;
+  width: var(--detail-label-w);
+  padding: 4px 0;
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: -0.06em;
+  color: #999;
+}
+
+.content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
+  min-width: 0;
+  gap: var(--detail-heading-gap);
+}
+
+.heading {
+  flex: none;
+  width: var(--detail-heading-w);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--detail-lang-font, 'Pretendard', sans-serif);
+  font-weight: var(--detail-lang-weight, 600);
+  font-size: 20px;
+  line-height: var(--detail-lang-lh, 1.4);
+  letter-spacing: var(--detail-lang-ls-24, -0.05em);
+  color: #fff;
+}
+
+.body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  font-family: var(--detail-lang-font, 'Pretendard', sans-serif);
+  font-weight: var(--detail-lang-weight, 500);
+  font-size: 16px;
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-16, -0.03em);
+  color: #999;
+}
+
+.bodyDim {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.body p {
+  margin: 0;
+}
+
+/* Below this point the label/heading/body stack into one column — kept in
+   sync with the breakpoint in MediaBlocks.module.css so images switch to
+   the same flush-left alignment at the same width. */
+@media (max-width: 1024px) {
+  .row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .label {
+    width: auto;
+  }
+
+  .content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .heading {
+    width: auto;
+  }
+}

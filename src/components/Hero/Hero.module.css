@@ -1,0 +1,373 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 500vh; /* extra scroll room for the multi-phase scroll sequence */
+}
+
+.pinned {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  padding-top: 72px; /* reserve space for the fixed GNB */
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #120e19;
+}
+
+/* Figma "Ellipse 73105" (node 388:931): the exported PNG already bakes in
+   the gradient + 60px layer blur, and is oversized by the export bleed
+   (2280x2080 vs the shape's own 2040x1840) so the blur isn't clipped —
+   center it on the same point CSS gradient stops would have used. */
+.glow {
+  --glow-y: 105%;
+  position: absolute;
+  left: 50%;
+  top: var(--glow-y);
+  z-index: 0;
+  width: 2400px;
+  height: 2165px;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100%;
+}
+
+.titleTop,
+.titleBottom {
+  flex: none;
+  text-align: center;
+  font-weight: 500;
+  font-size: clamp(28px, min(6vw, 8.5vh), 96px);
+  line-height: 1;
+  letter-spacing: -0.08em;
+  color: #fff;
+  mix-blend-mode: overlay;
+}
+
+.titleTop {
+  margin-top: 50px; /* 50px below the GNB */
+}
+
+.titleBottom {
+  margin-bottom: 50px; /* 50px above the bottom edge */
+}
+
+.line {
+  display: block;
+}
+
+.gradientText {
+  color: #fff;
+}
+
+/* fills the remaining space between the two titles; hosts the info row and the
+   project circles as stacked, independently-faded layers centered inside it */
+.middle {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.infoRow {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 32px;
+  box-sizing: border-box;
+}
+
+.projectsRow {
+  position: absolute;
+  inset: 0;
+}
+
+.projectsRow.sliding {
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.projectItem {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #0a0a0c;
+}
+
+.projectsRow.animated .projectItem {
+  transition:
+    width 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+    height 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+    transform 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.5s ease;
+}
+
+.projectsRow.animated .titleText {
+  transition:
+    opacity 0.5s ease 0.15s,
+    filter 0.5s ease 0.15s;
+}
+
+.projectsRow.animated .navArrow {
+  transition:
+    opacity 0.5s ease 0.15s,
+    transform 0.2s ease;
+}
+
+.navArrow {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(24px, 2.8vw, 40px);
+  height: clamp(24px, 2.8vw, 40px);
+  padding: 0;
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  transform: translateY(-50%);
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));
+  transition: transform 0.2s ease;
+}
+
+.navArrow:hover {
+  transform: translateY(-50%) scale(1.15);
+}
+
+.navArrowPrev {
+  left: clamp(12px, 2vw, 30px);
+}
+
+.navArrowNext {
+  right: clamp(12px, 2vw, 30px);
+}
+
+.navArrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+.projectImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lockOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.lockIcon {
+  width: clamp(18px, 2.4vw, 28px);
+  height: clamp(18px, 2.4vw, 28px);
+}
+
+.lockText {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(11px, 1.4vw, 15px);
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+/* Mobile only (see .titleText) — the lock sits just above the title instead
+   of centered over the whole thumbnail with a "Password required" label. */
+.lockIconAboveTitle {
+  width: 20px;
+  height: 20px;
+}
+
+.textOverlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+.titleText {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(20px, 8%, 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 2vw, 24px);
+  text-align: center;
+  pointer-events: none;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.titleTextHeading {
+  font-weight: 300;
+  font-size: clamp(28px, 6vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.08em;
+  color: #fff;
+}
+
+.titleTextDesc {
+  font-weight: 500;
+  font-size: clamp(11px, 1.4vw, 16px);
+  line-height: 1.4;
+  letter-spacing: -0.06em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.titleTextDesc p {
+  margin: 0;
+}
+
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 200px;
+}
+
+.infoLabel {
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-align: center;
+  color: #ffffff;
+  opacity: 0.5;
+}
+
+.infoLink {
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.06em;
+  text-align: center;
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Only forced onto two lines on mobile, where the column is narrower — on
+   desktop the address fits on one line just fine. */
+.emailBreak {
+  display: none;
+}
+
+.infoText {
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.06em;
+  text-align: center;
+  color: #fff;
+}
+
+.arrowWrap {
+  flex-shrink: 0;
+  width: clamp(24px, 4vw, 50px);
+  height: clamp(24px, 4vw, 50px);
+  padding: 0;
+  border: none;
+  background: none;
+  mix-blend-mode: overlay;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.arrowWrap:hover {
+  transform: scale(1.1);
+}
+
+.arrow {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Mobile: the row of circles becomes a vertical stack (driven from Hero.jsx
+   — width/height/translateY are all computed there), so only the purely
+   presentational pieces need overriding here: the title+description move
+   from a bottom-anchored strip to dead center, and the prev/next arrows
+   move from the left/right edges to the top/bottom edges. */
+@media (max-width: 640px) {
+  .textOverlay {
+    top: 0;
+    bottom: 0;
+    height: auto;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .titleText {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    gap: 8px;
+  }
+
+  .titleTextHeading {
+    font-size: clamp(20px, 7vw, 30px);
+  }
+
+  .titleTextDesc {
+    font-size: clamp(11px, 3.2vw, 14px);
+  }
+
+  .navArrow {
+    top: auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .navArrow:hover {
+    transform: translateX(-50%) scale(1.15);
+  }
+
+  .navArrowPrev {
+    top: 12px;
+    bottom: auto;
+  }
+
+  .navArrowNext {
+    bottom: 12px;
+    top: auto;
+  }
+
+  /* Prev/next chevrons are drawn pointing left/right — rotate 90° so they
+     point up/down to match their new top/bottom position. */
+  .navArrow svg {
+    transform: rotate(90deg);
+  }
+
+  .emailBreak {
+    display: block;
+  }
+}

@@ -1,0 +1,35 @@
+.dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  /* Plain white dot with no blend mode by default (home page). */
+  mix-blend-mode: normal;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Detail pages only: "difference" only kicks in where it lands on other
+   pure-white pixels (difference(white, white) = black), so it reads as a
+   solid white cursor everywhere except flipping to black over white UI —
+   no visible blending/tinting elsewhere. */
+.dotDifference {
+  mix-blend-mode: difference;
+}
+
+/* Applied to <html> while the custom cursor is active — hides the OS cursor
+   everywhere, including over links, inputs and iframes. */
+.hideNativeCursor,
+.hideNativeCursor * {
+  cursor: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    transition: none;
+  }
+}

@@ -1,0 +1,160 @@
+.fullBleed {
+  width: 100%;
+  background: #000;
+  padding: 0 clamp(20px, 4vw, 31px) 0 var(--detail-heading-offset);
+  box-sizing: border-box;
+}
+
+.fullBleedInner {
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.embedFrame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* User-driven <video controls>: contain (never crop the native control bar)
+   on a black field matching the aspect-ratio box. */
+.playerVideo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.captionedGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.caption {
+  margin: 0;
+  padding: 0 clamp(20px, 4vw, 31px) 0 var(--detail-heading-offset);
+  font-family: var(--detail-lang-font, 'Pretendard', sans-serif);
+  font-weight: var(--detail-lang-weight, 500);
+  font-size: 14px;
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-16, -0.03em);
+  color: #999;
+}
+
+.groupIntro {
+  width: 100%;
+  padding: 0 clamp(20px, 4vw, 31px) 0 var(--detail-heading-offset);
+  box-sizing: border-box;
+  font-family: var(--detail-lang-font, 'Pretendard', sans-serif);
+  font-weight: var(--detail-lang-weight, 500);
+  font-size: 16px;
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-16, -0.03em);
+  color: #999;
+}
+
+.groupIntro p {
+  margin: 0;
+}
+
+.tripleRow {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  background: #000;
+  padding: 0 clamp(20px, 4vw, 31px) 0 var(--detail-heading-offset);
+  box-sizing: border-box;
+}
+
+.tripleRowBare {
+  display: flex;
+  gap: 16px;
+  flex: 1 1 0%;
+  min-width: 0;
+  background: #000;
+}
+
+.tripleCell {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.tripleCellCaptioned {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Same box as .tripleCell, but sized by width (100% of the column above)
+   instead of flex — inside .tripleCellCaptioned's column layout, flex:1 1 0
+   sizes along the (vertical) main axis instead of width, collapsing height
+   to 0 before aspect-ratio gets a chance to apply. */
+.tripleCellBox {
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.tripleCellNatural {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.imgNatural {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Kept in sync with SectionIntro.module.css's stacked breakpoint: once the
+   label/heading/body column collapses to one column, the images flush left
+   with the page padding instead of the (now meaningless) heading offset. */
+.compareRow {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  padding: 0 clamp(20px, 4vw, 31px) 0 var(--detail-heading-offset);
+  box-sizing: border-box;
+}
+
+.compareItem {
+  display: flex;
+  flex: 1 1 0%;
+  min-width: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 1024px) {
+  .fullBleed,
+  .caption,
+  .tripleRow,
+  .groupIntro,
+  .compareRow {
+    padding-left: var(--detail-page-pad);
+  }
+
+  .compareRow {
+    flex-direction: column;
+  }
+}
+
+.conceptStrip {
+  margin-top: -64px;
+}

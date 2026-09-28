@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+*.DS_Store
+npm-debug.log*
+
+# Figma MCP server config carries a live personal access token in plaintext —
+# never commit it. Recreate .mcp.json locally (see conversation history) if
+# this repo is cloned fresh.
+.mcp.json
+
+# Per-developer tool settings, not shared project config.
+.claude/settings.local.json

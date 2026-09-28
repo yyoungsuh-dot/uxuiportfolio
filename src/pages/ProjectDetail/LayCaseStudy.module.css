@@ -1,0 +1,278 @@
+/* Pinned in place (not part of scroll flow) so the section below scrolls up
+   over it, covering it, instead of it scrolling away with the page. */
+.hero {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: clamp(320px, 54vw, 780px);
+  background: #000;
+  overflow: hidden;
+}
+
+.heroImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overview {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 7vw, 100px);
+  /* reserves the space the (now out-of-flow) fixed hero would have taken,
+     and gives this section an opaque backing so it visually covers the
+     hero as it scrolls up over it */
+  margin-top: clamp(320px, 54vw, 780px);
+  padding: clamp(48px, 7vw, 80px) 0;
+  background: #000;
+}
+
+.overviewRow {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--detail-label-gap);
+  padding: 0 var(--detail-page-pad);
+}
+
+.overviewLabel {
+  flex: none;
+  width: var(--detail-label-w);
+  padding: 9px 0;
+  margin: 0;
+  font-weight: var(--detail-lang-weight, 500);
+  font-size: 14px;
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-16, -0.06em);
+  color: #999;
+}
+
+.overviewContent {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
+  min-width: 0;
+  gap: var(--detail-heading-gap);
+}
+
+.title {
+  flex: none;
+  width: var(--detail-heading-w);
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.08em;
+  color: #fff;
+}
+
+.description {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.subtitle {
+  margin: 0;
+  font-family: var(--detail-lang-font, 'Pretendard', sans-serif);
+  font-weight: var(--detail-lang-weight, 600);
+  font-size: clamp(18px, 2.2vw, 20px);
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-24, -0.05em);
+  color: #fff;
+  white-space: pre-line;
+}
+
+.paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  font-family: var(--detail-lang-font, 'Pretendard', sans-serif);
+  font-weight: var(--detail-lang-weight, 500);
+  font-size: 16px;
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-16, -0.03em);
+  color: #999;
+}
+
+.paragraphs p {
+  margin: 0;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(24px, 6vw, 156px);
+  padding: 40px clamp(20px, 4vw, 31px) 40px var(--detail-heading-offset);
+  background: #000;
+}
+
+.metaColumn {
+  display: flex;
+  flex: 1 1 140px;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metaLabel {
+  margin: 0;
+  font-weight: var(--detail-lang-weight, 400);
+  font-size: 16px;
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-16, -0.05em);
+  color: #999;
+}
+
+.metaValue {
+  font-weight: var(--detail-lang-weight, 400);
+  font-size: 16px;
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-16, -0.06em);
+  color: #fff;
+}
+
+.metaValue p {
+  margin: 0;
+}
+
+/* Every section below the fixed .hero needs its own stacking (position +
+   z-index) above it plus an opaque black background — otherwise, as each
+   one scrolls up through the hero's pinned band at the top of the
+   viewport, the hero (painted at a higher stack level than ordinary static
+   content) would render over it instead of being covered by it. */
+.divider {
+  position: relative;
+  z-index: 1;
+  padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 32px);
+  background: #000;
+}
+
+.dividerLine {
+  width: 100%;
+  height: 1px;
+  background: #555;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(64px, 9vw, 100px);
+  padding-bottom: clamp(64px, 9vw, 120px);
+  background: #000;
+}
+
+.onboarding {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--detail-label-gap);
+  padding: 0 var(--detail-page-pad);
+}
+
+.onboardingLabel {
+  flex: none;
+  width: var(--detail-label-w);
+  margin: 0;
+  font-weight: var(--detail-lang-weight, 400);
+  font-size: 14px;
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-16, -0.06em);
+  color: #999;
+}
+
+.onboardingImgWrap {
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.onboardingImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 5vw, 52px);
+}
+
+.sectionMedia {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.subRow {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--detail-label-gap);
+  padding: 0 var(--detail-page-pad);
+}
+
+.subRowLabel {
+  flex: none;
+  width: var(--detail-label-w);
+  margin: 0;
+  font-weight: var(--detail-lang-weight, 400);
+  font-size: 14px;
+  line-height: var(--detail-lang-lh, 1.5);
+  letter-spacing: var(--detail-lang-ls-16, -0.06em);
+  color: #999;
+}
+
+/* Kept in sync with SectionIntro.module.css / MediaBlocks.module.css: below
+   this width the label/heading/body columns stack, so these rows (and the
+   meta bar, which otherwise reads --detail-heading-offset) follow suit. */
+
+@media (max-width: 1024px) {
+  .overviewRow {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .overviewLabel {
+    width: auto;
+  }
+
+  .overviewContent {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .title {
+    width: auto;
+  }
+
+  .metaRow {
+    padding-left: var(--detail-page-pad);
+  }
+
+  .onboarding,
+  .subRow {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .onboardingLabel,
+  .subRowLabel {
+    width: auto;
+  }
+}

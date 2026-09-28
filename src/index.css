@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Shared case-study layout columns: label + heading + body. Media blocks
+     read --detail-heading-offset so their left edge always lines up with the
+     heading text's left edge, at any viewport width. Keep the breakpoint in
+     SectionIntro.module.css / MediaBlocks.module.css / LayCaseStudy.module.css
+     in sync — that's where this row layout switches to a stacked one. */
+  --detail-page-pad: clamp(20px, 4vw, 32px);
+  --detail-label-w: 200px;
+  --detail-label-gap: clamp(24px, 4vw, 89px);
+  --detail-heading-offset: calc(var(--detail-page-pad) + var(--detail-label-w) + var(--detail-label-gap));
+  --detail-heading-gap-min: 24px;
+
+  /* Body copy aligns with the GNB's "Works" link. Header.jsx measures its
+     real position (the nav's own flex layout makes it non-formulaic) and
+     overwrites this on mount/resize; the calc() here is only the pre-JS
+     fallback so there's no visible jump before that runs. */
+  --gnb-works-left: calc(var(--detail-heading-offset) + 320px + clamp(24px, 8vw, 150px));
+  --detail-body-offset: var(--gnb-works-left);
+
+  /* Space available for [heading][gap] between the label column and body.
+     Heading takes up to 320px of it; once that plus the minimum gap no
+     longer fits, heading shrinks (down to 140px) instead of body drifting
+     off --gnb-works-left. Any extra room beyond that goes into the gap, so
+     wide screens still get generous breathing room, not a stretched heading. */
+  --detail-avail: calc(var(--detail-body-offset) - var(--detail-heading-offset));
+  --detail-heading-w: clamp(140px, calc(var(--detail-avail) - var(--detail-heading-gap-min)), 320px);
+  --detail-heading-gap: max(var(--detail-heading-gap-min), calc(var(--detail-avail) - var(--detail-heading-w)));
+}
+
+html,
+body {
+  background: #120e19;
+  color: #fff;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+#root {
+  min-height: 100%;
+}
+
+a {
+  color: inherit;
+}
